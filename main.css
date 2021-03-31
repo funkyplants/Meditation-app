@@ -1,0 +1,74 @@
+/*comment*/
+* {
+  font-family: "Raleway", sans-serif;
+  color: white;
+}
+
+body {
+  background-image: url("rain.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position-y: center;
+}
+
+.page-container {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 960px;
+  text-align: center;
+}
+h1 {
+  font-size: 40px;
+}
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+.timer-container {
+  display: flex;
+  flex-direction: column;
+}
+button {
+  margin-top: 30px;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 50px;
+  border: solid 1px white;
+  padding: 10px 45px;
+}
+button:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+}
+.sound-container {
+  display: flex;
+  flex-direction: column;
+}
+.cloud-container {
+  display: flex;
+  flex-direction: column;
+}
+img {
+  position: relative;
+}
+.cloud-timer {
+  position: absolute;
+  right: 46.5%;
+  top: 170px;
+}
+p {
+  font-size: 50px;
+  color: rgb(196, 196, 196);
+  margin-bottom: 10px;
+  margin-top: 18px;
+}
+
+.play:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.sound-symbol {
+  width: 54px;
+  margin: 30px auto;
+}
