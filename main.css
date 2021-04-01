@@ -1,4 +1,28 @@
-/*comment*/
+.start-page {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.big-cloud {
+  width: 100%;
+  position: relative;
+}
+.cloud-content {
+  position: absolute;
+  bottom: 70%;
+  left: 40%;
+}
+.greeting,
+.time-title,
+.theme-title {
+  color: black;
+}
+
+.page-container {
+  display: none;
+}
+
 * {
   font-family: "Raleway", sans-serif;
   color: white;
@@ -18,7 +42,7 @@ body {
   width: 960px;
   text-align: center;
 }
-h1 {
+.title {
   font-size: 40px;
 }
 .container {
