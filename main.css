@@ -40,16 +40,21 @@ body {
 }
 .time-input {
   padding: 11px;
-  width: 100px;
+  width: 80px;
   border: solid 1px rgb(145, 145, 145);
   border-radius: 3px;
 }
 .theme-title {
   margin-bottom: 5px;
+  text-align: left;
+  margin-left: 15px;
 }
 .time-theme-flex {
   display: flex;
   justify-content: space-between;
+}
+.theme-flex {
+  display: flex;
 }
 .input-name {
   padding: 10px;
@@ -109,10 +114,14 @@ ul {
 }
 #theme {
   padding: 10px;
-  width: 100px;
+  width: 114px;
   border: solid 1px rgb(145, 145, 145);
   border-radius: 3px;
-  width: 124px;
+  margin-right: 4px;
+}
+
+.sound {
+  width: 40px;
 }
 
 /* .page-container {
