@@ -30,13 +30,14 @@
             <h2 class="theme-title">Theme</h2>
 
               <form action="#">
-                <select id="theme" name="theme">
-                  <option value="rain">Rain</option>
-                  <option value="ocean">Ocean</option>
-                  <option value="forest">Forest</option>
-                  <option value="fire">Fire</option>
+                <select id="theme" name="theme" onchange="previewFunction()">
+                  <option value="rain" class="rain-option">Rain</option>
+                  <option value="ocean" class="ocean-option">Ocean</option>
+                  <option value="forest" class="forest-option">Forest</option>
+                  <option value="fire" class="fire-option">Fire</option>
                 </select>
               </form>
+              <img src="sound-off.svg" alt="Sound Off">
             <!-- <div class="theme-menu">
               <ul>
                 <li>Rain</li>
@@ -47,6 +48,7 @@
             </div> -->
           </div>
         </div>
+        <button id="start-btn">START</button>
       </div>
     </div>
 
@@ -79,5 +81,7 @@
       </div>
       <script src="script.js"></script>
     </div> -->
+
+    <script src="script.js"></script>
   </body>
 </html>

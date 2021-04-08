@@ -24,8 +24,11 @@ body {
 }
 .cloud-content {
   position: absolute;
-  bottom: 45%;
-  left: 38%;
+  bottom: 100%;
+  top: 150px;
+  /* left: 38%; */
+  left: 50%;
+  transform: translateX(-50%);
   width: 300px;
   text-align: center;
   margin: 0 auto;
@@ -50,6 +53,7 @@ body {
 }
 .input-name {
   padding: 10px;
+  width: calc(270px - 40px);
 }
 .ok-button {
   padding: 10px;
@@ -57,19 +61,29 @@ body {
   border: solid 1px rgb(145, 145, 145);
   border-radius: 3px;
 }
-
-button {
-  background-color: white;
-  border-radius: 5px;
-  border: solid 1px rgb(145, 145, 145);
-  padding: 10px 45px;
-  margin-top: 20px;
-}
-button:hover {
+.ok-button:hover {
   cursor: pointer;
   background-color: rgb(197, 197, 197);
   color: white;
 }
+
+#start-btn {
+  background-color: white;
+  border-radius: 100%;
+  border: 4px rgb(163, 163, 163);
+  margin-top: 40px;
+  padding: 32.5px 20px;
+  border-style: outset;
+  font-weight: 700;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease 0s;
+}
+#start-btn:hover {
+  border-style: inset;
+  box-shadow: inset 2px 5px 10px #d8d8d8;
+  cursor: pointer;
+}
+
 li {
   color: black;
   list-style-type: none;

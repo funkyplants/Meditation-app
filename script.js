@@ -1,3 +1,18 @@
+let selectedTheme = document.querySelector("#theme");
+console.log(selectedTheme.value);
+let audio = new Audio("rain-sound.mp3");
+
+function previewFunction() {
+  console.log(selectedTheme.value);
+  audio.play();
+}
+
+// oceanOption.addEventListener("select", oceanPreview);
+
+// function oceanPreview() {
+//   console.log("working");
+// }
+
 // //comment
 // var rainButton = document.querySelector(".rain");
 
