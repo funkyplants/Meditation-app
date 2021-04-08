@@ -123,6 +123,11 @@ ul {
 .sound {
   width: 40px;
 }
+.sound:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  opacity: 0.8;
+}
 
 /* .page-container {
   display: none;

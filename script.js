@@ -2,6 +2,20 @@ let selectedTheme = document.querySelector("#theme");
 console.log(selectedTheme.value);
 let audio = new Audio("rain-sound.mp3");
 
+let soundBtn = document.querySelector(".sound");
+soundBtn.addEventListener("click", soundPlaying);
+let mute = true;
+
+function soundPlaying() {
+  if (mute === true) {
+    soundBtn.src = "sound-on.svg";
+    mute = false;
+  } else if (mute === false) {
+    soundBtn.src = "sound-off.svg";
+    mute = true;
+  }
+}
+
 function previewFunction() {
   console.log(selectedTheme.value);
   audio.play();
