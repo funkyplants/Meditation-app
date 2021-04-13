@@ -5,20 +5,118 @@ let audio = new Audio("rain-sound.mp3");
 let soundBtn = document.querySelector(".sound");
 soundBtn.addEventListener("click", soundPlaying);
 let mute = true;
+let node;
+let starImg = document.querySelector(".star-button");
+let luckyText = document.querySelector(".lucky-p");
+luckyText.addEventListener("click", randomizeSettings);
+let randomTime = document.querySelector(".time-input");
+randomTheme = document.querySelector("#theme");
+
+//-------ASK GARRIT
+// let timeSeconds = document.querySelector(".time-input");
+// timeSeconds.value = timeSeconds.value + ":00";
+
+function starText() {
+  starImg.style.display = "none";
+  luckyText.style.display = "block";
+}
+function noStarText() {
+  starImg.style.display = "block";
+  luckyText.style.display = "none";
+}
+function randomizeSettings() {
+  //time
+  randomTime.value = 5 * (Math.floor(Math.random() * 6) + 1);
+
+  //theme
+  let themes = ["rain", "ocean", "forest", "fire"];
+  randomTheme.value = themes[Math.floor(Math.random() * 4)];
+  if (randomTheme.value === "rain") {
+    rainPlay();
+  } else if (randomTheme.value === "ocean") {
+    oceanPlay();
+  } else if (randomTheme.value === "forest") {
+    forestPlay();
+  } else if (randomTheme.value === "fire") {
+    firePlay();
+  }
+
+  // Math.floor(Math.random() * themes.length) + 1;
+}
 
 function soundPlaying() {
   if (mute === true) {
     soundBtn.src = "sound-on.svg";
+    audio.play();
     mute = false;
   } else if (mute === false) {
     soundBtn.src = "sound-off.svg";
+    audio.pause();
     mute = true;
   }
 }
 
 function previewFunction() {
   console.log(selectedTheme.value);
-  audio.play();
+  if (selectedTheme.value === "rain") {
+    rainPlay();
+  } else if (selectedTheme.value === "ocean") {
+    oceanPlay();
+  } else if (selectedTheme.value === "forest") {
+    forestPlay();
+  } else if (selectedTheme.value === "fire") {
+    firePlay();
+  }
+}
+
+function rainPlay() {
+  if (mute === true) {
+    audio.pause();
+    audio = new Audio("rain-sound.mp3");
+  } else if (mute === false) {
+    audio.pause();
+    audio.play();
+  }
+
+  document.body.style.backgroundImage = "url('rain.jpeg')";
+}
+
+function oceanPlay() {
+  if (mute === true) {
+    audio.pause();
+    audio = new Audio("ocean-sound.mp3");
+  } else if (mute === false) {
+    audio.pause();
+    audio = new Audio("ocean-sound.mp3");
+    audio.play();
+  }
+
+  document.body.style.backgroundImage = "url('ocean.jpeg')";
+}
+
+function forestPlay() {
+  if (mute === true) {
+    audio.pause();
+    audio = new Audio("forest-sound.mp3");
+  } else if (mute === false) {
+    audio.pause();
+    audio = new Audio("forest-sound.mp3");
+    audio.play();
+  }
+
+  document.body.style.backgroundImage = "url('forest.jpeg')";
+}
+function firePlay() {
+  if (mute === true) {
+    audio.pause();
+    audio = new Audio("fire-sound.mp3");
+  } else if (mute === false) {
+    audio.pause();
+    audio = new Audio("fire-sound.mp3");
+    audio.play();
+  }
+
+  document.body.style.backgroundImage = "url('fire.jpeg')";
 }
 
 // oceanOption.addEventListener("select", oceanPreview);

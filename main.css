@@ -25,7 +25,7 @@ body {
 .cloud-content {
   position: absolute;
   bottom: 100%;
-  top: 150px;
+  top: 135px;
   /* left: 38%; */
   left: 50%;
   transform: translateX(-50%);
@@ -37,17 +37,21 @@ body {
 .time-title {
   padding: 0px;
   margin-bottom: 5px;
+  text-align: left;
+  margin-left: 30px;
 }
 .time-input {
   padding: 11px;
   width: 80px;
   border: solid 1px rgb(145, 145, 145);
   border-radius: 3px;
+  margin-left: 30px;
 }
 .theme-title {
   margin-bottom: 5px;
   text-align: left;
   margin-left: 15px;
+  margin-left: 30px;
 }
 .time-theme-flex {
   display: flex;
@@ -58,25 +62,14 @@ body {
 }
 .input-name {
   padding: 10px;
-  width: calc(270px - 40px);
-}
-.ok-button {
-  padding: 10px;
-  background-color: rgb(224, 224, 224);
-  border: solid 1px rgb(145, 145, 145);
-  border-radius: 3px;
-}
-.ok-button:hover {
-  cursor: pointer;
-  background-color: rgb(197, 197, 197);
-  color: white;
+  width: 215px;
 }
 
 #start-btn {
   background-color: white;
   border-radius: 100%;
   border: 4px rgb(163, 163, 163);
-  margin-top: 40px;
+  margin-top: 30px;
   padding: 32.5px 20px;
   border-style: outset;
   font-weight: 700;
@@ -114,10 +107,12 @@ ul {
 }
 #theme {
   padding: 10px;
-  width: 114px;
+  padding-right: 0;
+  width: 104px;
   border: solid 1px rgb(145, 145, 145);
   border-radius: 3px;
   margin-right: 4px;
+  margin-left: 30px;
 }
 
 .sound {
@@ -127,6 +122,19 @@ ul {
   cursor: pointer;
   transform: scale(1.05);
   opacity: 0.8;
+}
+
+.star-button {
+  width: 30px;
+  display: block;
+  margin: 0 auto;
+}
+.lucky-p {
+  font-style: italic;
+  display: none;
+  margin-top: 10px;
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 /* .page-container {
