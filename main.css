@@ -11,14 +11,14 @@ body {
   background-position-y: center;
   text-align: center;
 }
-
+/* .all content, */
 .start-page {
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
 }
-
 .big-cloud {
+  min-width: 480px;
   width: 100%;
   position: relative;
 }
@@ -29,11 +29,14 @@ body {
   /* left: 38%; */
   left: 50%;
   transform: translateX(-50%);
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   text-align: center;
   margin: 0 auto;
 }
-/* .greeting, */
+.greeting {
+  margin-top: 30px;
+}
 .time-title {
   padding: 0px;
   margin-bottom: 5px;
@@ -59,6 +62,15 @@ body {
 }
 .theme-flex {
   display: flex;
+}
+#theme {
+  padding: 10px;
+  padding-right: 0;
+  width: 104px;
+  border: solid 1px rgb(145, 145, 145);
+  border-radius: 3px;
+  margin-right: 4px;
+  margin-left: 30px;
 }
 .input-name {
   padding: 10px;
@@ -105,18 +117,8 @@ ul {
   padding: 0;
   margin-top: 5px;
 }
-#theme {
-  padding: 10px;
-  padding-right: 0;
-  width: 104px;
-  border: solid 1px rgb(145, 145, 145);
-  border-radius: 3px;
-  margin-right: 4px;
-  margin-left: 30px;
-}
-
 .sound {
-  width: 40px;
+  width: 30px;
 }
 .sound:hover {
   cursor: pointer;
@@ -132,10 +134,122 @@ ul {
 .lucky-p {
   font-style: italic;
   display: none;
-  margin-top: 10px;
   cursor: pointer;
   opacity: 0.5;
+  margin: 10px 0;
 }
+
+/* -----------MEDIA QUERIES-------------- */
+
+@media screen and (max-width: 900px) {
+  .cloud-content {
+    top: 17vw;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 18px;
+  }
+
+  #start-btn {
+    padding: 22px 10px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .cloud-content {
+    top: 14vw;
+  }
+}
+@media screen and (max-width: 730px) {
+  .cloud-content {
+    top: 16vw;
+  }
+  h1 {
+    font-size: 20px;
+  }
+  h2 {
+    font-size: 14px;
+  }
+  p {
+    font-size: 11px;
+  }
+  input {
+    font-size: 11px;
+  }
+  select {
+    font-size: 11px;
+  }
+
+  #start-btn {
+    margin-top: 20px;
+  }
+  .lucky-p {
+    margin: 15px 0;
+  }
+}
+@media screen and (max-width: 680px) {
+  #start-btn {
+    padding: 17px 6.5px;
+    font-size: 11px;
+  }
+  .sound {
+    width: 25px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .big-cloud {
+    /* position: relative; */
+    margin: 0 auto;
+  }
+  .start-page {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .cloud-content {
+    top: 15vw;
+  }
+  #theme {
+    padding: 5px;
+  }
+  .time-input {
+    padding: 5.5px;
+  }
+  .input-name {
+    padding: 5px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .big-cloud {
+    /* position: relative; */
+    margin: 0 auto;
+  }
+  .start-page {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .cloud-content {
+    top: 11vw;
+  }
+}
+
+/* @media screen and (max-width: 320px) {
+  .big-cloud {
+    position: relative;
+    top: 100%;
+    bottom: 100%;
+    left: 1%;
+    right: 1%;
+    margin: 0 auto;
+  }
+  .start-page {
+    position: absolute;
+    overflow: hidden;
+  }
+} */
 
 /* .page-container {
   display: none;
