@@ -5,16 +5,34 @@ let audio = new Audio("rain-sound.mp3");
 let soundBtn = document.querySelector(".sound");
 soundBtn.addEventListener("click", soundPlaying);
 let mute = true;
-let node;
 let starImg = document.querySelector(".star-button");
 let luckyText = document.querySelector(".lucky-p");
 luckyText.addEventListener("click", randomizeSettings);
 let randomTime = document.querySelector(".time-input");
 randomTheme = document.querySelector("#theme");
+let nameInput = document.querySelector(".input-name");
+let startBtn = document.querySelector("#start-btn");
+let greeting = document.querySelector(".greeting");
+
+let personInfo;
+let parseInfo;
 
 //-------ASK GARRIT
 // let timeSeconds = document.querySelector(".time-input");
 // timeSeconds.value = timeSeconds.value + ":00";
+
+// function loadHandler() {
+//   console.log("window is loaded");
+//   if (localStorage.personInfo == undefined) {
+//     let greeting = document.querySelector(".greeting");
+//     greeting.innerHTML = "Good Morning!";
+//   } else {
+//     parseInfo = JSON.parse(localStorage.personInfo);
+//     console.log(personInfo);
+//     let greeting = document.querySelector(".greeting");
+//     greeting.innerHTML = "Good Morning " + personInfo.name + "!";
+//   }
+// }
 
 function starText() {
   starImg.style.display = "none";
@@ -118,6 +136,43 @@ function firePlay() {
 
   document.body.style.backgroundImage = "url('fire.jpeg')";
 }
+
+// --------------------START BUTTON
+
+startBtn.addEventListener("click", startMeditation);
+
+function startMeditation() {
+  if (nameInput.value === "") {
+    nameInput.style.border = "solid 1px #FF0000";
+    console.log("hej");
+    nameInput.placeholder = "Please enter this field";
+    
+  }
+  else if (nameInput.value !== "") {
+    personInfo = {
+      name: nameInput.value, 
+      time: randomTime.value,
+      theme: randomTheme.value,
+    };
+  // else if (nameInput.value !== "") {
+  //   // object //
+    // personInfo = {
+    //   name: nameInput.value,
+    //   time: randomTime.value,
+    //   theme: randomTheme.value,
+    // };
+    // localStorage.personInfo = JSON.stringify(personInfo);
+  //   // parseInfo = JSON.parse(localStorage.personInfo);
+  //   // greeting.innerHTML = "Good Morning " + personInfo.name + "!";
+  // }
+}
+
+// object //
+// personInfo = {
+//   name: document.getElementById("name").value,
+// };
+
+// window.addEventListener("load", loadHandler);
 
 // oceanOption.addEventListener("select", oceanPreview);
 
