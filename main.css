@@ -131,11 +131,15 @@ ul {
   display: block;
   margin: 0 auto;
 }
+.star-button:hover {
+  cursor: pointer;
+}
 .lucky-p {
   font-style: italic;
   display: none;
   cursor: pointer;
   opacity: 0.5;
+  margin-bottom: 0;
 }
 
 /* -----------MEDIA QUERIES-------------- */
@@ -185,9 +189,6 @@ ul {
 
   #start-btn {
     margin-top: 20px;
-  }
-  .lucky-p {
-    margin: 15px 0;
   }
 }
 @media screen and (max-width: 680px) {
