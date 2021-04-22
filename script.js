@@ -13,13 +13,14 @@ randomTheme = document.querySelector("#theme");
 let nameInput = document.querySelector(".input-name");
 let startBtn = document.querySelector("#start-btn");
 let greeting = document.querySelector(".greeting");
+let incrementTime = document.querySelector(".up-arrow");
+let decrementTime = document.querySelector(".down-arrow");
+incrementTime.addEventListener("click", increment);
+decrementTime.addEventListener("click", decrement);
+let parseTime;
 
 let personInfo;
 let parseInfo;
-
-//-------ASK GARRIT
-// let timeSeconds = document.querySelector(".time-input");
-// timeSeconds.value = timeSeconds.value + ":00";
 
 // function loadHandler() {
 //   console.log("window is loaded");
@@ -34,6 +35,42 @@ let parseInfo;
 //   }
 // }
 
+function checkNumber() {
+  // isNAN = is not a number, so if "not a number" = false, it IS a number //
+  if (isNaN(randomTime.value) == false) {
+    console.log("number");
+    parseTime = parseInt(randomTime.value);
+    randomTime.value = parseTime + ":00";
+    console.log(parseTime);
+    randomTime.style.border = "solid 1px rgb(145, 145, 145)";
+  } else {
+    console.log("not a number");
+    randomTime.style.border = "solid 1px #FF0000";
+    randomTime.value = "";
+    randomTime.placeholder = "Error";
+  }
+}
+
+function increment() {
+  let parseTime = parseInt(randomTime.value);
+  console.log(parseTime);
+  randomTime.value = parseTime + 5 + ":00";
+  // if (isNaN(randomTime.value) == true) {
+  //   randomTime.value = 5 + ":00";
+  //   console.log("Hej");
+  // }
+}
+function decrement() {
+  let parseTime = parseInt(randomTime.value);
+  console.log(parseTime);
+  if (parseTime > 5) {
+    randomTime.value = parseTime - 5 + ":00";
+  }
+  // if (randomTime.placeholder == "Error") {
+  //   randomTime.value = 5 + ":00";
+  // }
+}
+
 function starText() {
   starImg.style.display = "none";
   luckyText.style.display = "block";
@@ -44,7 +81,7 @@ function noStarText() {
 }
 function randomizeSettings() {
   //time
-  randomTime.value = 5 * (Math.floor(Math.random() * 6) + 1);
+  randomTime.value = 5 * (Math.floor(Math.random() * 6) + 1) + ":00";
 
   //theme
   let themes = ["rain", "ocean", "forest", "fire"];
@@ -144,7 +181,6 @@ startBtn.addEventListener("click", startMeditation);
 function startMeditation() {
   if (nameInput.value === "") {
     nameInput.style.border = "solid 1px #FF0000";
-    console.log("hej");
     nameInput.placeholder = "Please enter this field";
   } else if (nameInput.value !== "") {
     personInfo = {
