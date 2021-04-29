@@ -15,10 +15,16 @@
     <div class="start-page">
       <img src="cloud.svg" alt="cloud" class="big-cloud" />
       <div class="cloud-content">
+        <div class="heart-star-flex">
+          <div class="frequently-used" onmouseover="heartText()" onmouseout="noHeartText()">
+        <img src="heart.svg" alt="Frequently Used" class="heart-button">
+        <p class="frequently-p">Frequently Used</p>
+      </div>
         <div class="feeling-lucky" onmouseover="starText()" onmouseout="noStarText()">
           <img src="star.svg" alt="Feeling lucky?" class="star-button">
         <p class="lucky-p">Feeling lucky?</p>
       </div>
+    </div>
         <h1 class="greeting">Good Morning!</h1>
         <p class="name-p">What's your name?</p>
         <input type="text" id="name" name="name" placeholder = "Your name here..." class="input-name"/>
@@ -59,6 +65,14 @@
           </div>
         </div>
         <button id="start-btn">START</button>
+        <div class="dialog-box">
+          <p class="close-window">x</p>
+          <ul>
+            <li><b>Time:</b> 5:00</li>
+            <li><b>Theme:</b> Forest</li>
+          </ul>
+          <button class="option-btn">Use Options</button>
+        </div>
       </div>
     </div>
 

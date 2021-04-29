@@ -14,6 +14,14 @@ let nameInput = document.querySelector(".input-name");
 let startBtn = document.querySelector("#start-btn");
 let greeting = document.querySelector(".greeting");
 
+//frequently used options
+let heartImg = document.querySelector(".heart-button");
+let frequentlyText = document.querySelector(".frequently-p");
+let dialogBox = document.querySelector(".dialog-box");
+frequentlyText.addEventListener("click", showDialog);
+let closeWindow = document.querySelector(".close-window");
+closeWindow.addEventListener("click", closeDialog);
+
 //time input
 let incrementTime = document.querySelector(".up-arrow");
 let decrementTime = document.querySelector(".down-arrow");
@@ -21,10 +29,31 @@ incrementTime.addEventListener("click", increment);
 decrementTime.addEventListener("click", decrement);
 let parseTime;
 
-//--------------GREETING------------------------//
-window.addEventListener("load", loadHandler);
-let timeBasedGreeting;
-let time;
+// document.addEventListener("click", locateClick(this));
+
+// function locateClick(element) {
+//   console.log(element);
+//   let targetElement = element.target;
+//   do {
+//     if (targetElement !== dialogBox) {
+//       dialogBox.style.display = "none";
+//     }
+//     targetElement = targetElement.parentNode;
+//   } while (targetElement);
+// }
+
+// window.addEventListener("click", locateClick(e)
+
+// function locateClick(element) {
+//   if (!dialogBox.is(e.target) && dialogBox.has(e.target).length === 0 {
+//     dialogBox.hide();
+//   }
+// }
+
+// //--------------GREETING------------------------//
+// window.addEventListener("load", loadHandler);
+// let timeBasedGreeting;
+// let time;
 
 function loadHandler() {
   //change greeting depending on hour
@@ -138,6 +167,27 @@ function randomizeSettings() {
   } else if (randomTheme.value === "fire") {
     firePlay();
   }
+}
+// ---------------- FREQUENTLY USED OPTIONS FEATURE (HEART) ------------------- //
+function heartText() {
+  heartImg.style.display = "none";
+  frequentlyText.style.display = "block";
+}
+function noHeartText() {
+  heartImg.style.display = "block";
+  frequentlyText.style.display = "none";
+}
+//show dialog window //
+function showDialog() {
+  frequentlyText.style.display = "block";
+  heartImg.style.display = "none";
+  dialogBox.style.display = "block";
+}
+// close dialog window //
+function closeDialog() {
+  dialogBox.style.display = "none";
+  heartImg.style.display = "block";
+  frequentlyText.style.display = "none";
 }
 
 // ------------- AUDIO --------------- //

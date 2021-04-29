@@ -108,30 +108,6 @@ body {
   box-shadow: inset 2px 5px 10px #d8d8d8;
   cursor: pointer;
 }
-
-li {
-  color: black;
-  list-style-type: none;
-  text-align: left;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: 400;
-  width: 100px;
-}
-li:hover {
-  background-color: rgb(197, 197, 197);
-  color: white;
-  cursor: pointer;
-}
-li:not(:last-child) {
-  border-bottom: solid 1px rgb(145, 145, 145);
-}
-ul {
-  border-radius: 3px;
-  border: solid 1px rgb(145, 145, 145);
-  padding: 0;
-  margin-top: 5px;
-}
 .sound {
   width: 30px;
 }
@@ -139,6 +115,19 @@ ul {
   cursor: pointer;
   transform: scale(1.05);
   opacity: 0.8;
+}
+.heart-star-flex {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+.heart-button {
+  width: 30px;
+  display: block;
+  margin: 0 auto;
+  opacity: 0.7;
+  position: relative;
 }
 
 .star-button {
@@ -159,6 +148,65 @@ ul {
 .feeling-lucky {
   height: 2em;
   overflow: hidden;
+  width: 8em;
+}
+.frequently-used {
+  height: 2em;
+  width: 8em;
+  overflow: hidden;
+}
+
+.frequently-p {
+  font-style: italic;
+  display: none;
+  cursor: pointer;
+  opacity: 0.5;
+  margin-bottom: 0;
+}
+
+.dialog-box {
+  width: 150px;
+  height: 180px;
+  background-color: #ffffff;
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  position: absolute;
+  top: 40px;
+  left: 130px;
+  padding-top: 0;
+  display: none;
+}
+.close-window {
+  margin: 5px;
+  text-align: right;
+  transform-origin: right 10px 10px;
+}
+.close-window:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+li {
+  color: black;
+  list-style-type: none;
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+}
+ul {
+  padding: 0;
+  margin-top: 5px;
+}
+.option-btn {
+  background-color: #393939;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+.option-btn:hover {
+  cursor: pointer;
+  opacity: 0.7;
 }
 
 /* -----------MEDIA QUERIES-------------- */
@@ -176,6 +224,15 @@ ul {
 
   #start-btn {
     padding: 22px 10px;
+  }
+  .dialog-box {
+    width: 120px;
+    height: 140px;
+    font-size: 14px;
+    left: 145px;
+  }
+  li {
+    padding: 5px;
   }
 }
 @media screen and (max-width: 800px) {
@@ -196,8 +253,11 @@ ul {
   h2 {
     font-size: 14px;
   }
-  .name-p,
-  .lucky-p {
+  .name-p {
+    font-size: 14px;
+  }
+  .lucky-p,
+  .frequently-p {
     font-size: 11px;
   }
   input {
@@ -209,6 +269,9 @@ ul {
 
   #start-btn {
     margin-top: 20px;
+  }
+  .dialog-box {
+    top: 35px;
   }
 }
 @media screen and (max-width: 680px) {
@@ -252,6 +315,10 @@ ul {
   #start-btn {
     margin-top: 10px;
   }
+  .option-btn {
+    padding: 8px;
+    font-size: 11px;
+  }
 }
 
 @media screen and (max-width: 540px) {
@@ -272,6 +339,12 @@ ul {
   }
   #start-btn {
     margin-top: 10px;
+  }
+  .heart-button {
+    width: 25px;
+  }
+  .dialog-box {
+    top: 30px;
   }
 }
 
