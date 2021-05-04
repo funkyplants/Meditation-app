@@ -29,6 +29,12 @@ incrementTime.addEventListener("click", increment);
 decrementTime.addEventListener("click", decrement);
 let parseTime;
 
+//START
+let cloudContent = document.querySelector(".cloud-content");
+let bigCloud = document.querySelector(".big-cloud");
+let cloudWidth = bigCloud.style.width;
+let parseWidth;
+
 // document.addEventListener("click", locateClick(this));
 
 // function locateClick(element) {
@@ -169,25 +175,61 @@ function randomizeSettings() {
   }
 }
 // ---------------- FREQUENTLY USED OPTIONS FEATURE (HEART) ------------------- //
+//onmouseover
 function heartText() {
   heartImg.style.display = "none";
   frequentlyText.style.display = "block";
 }
+//onmouseout
 function noHeartText() {
-  heartImg.style.display = "block";
-  frequentlyText.style.display = "none";
+  if (dialogBox.style.display !== "block") {
+    heartImg.style.display = "block";
+    frequentlyText.style.display = "none";
+  }
 }
 //show dialog window //
 function showDialog() {
   frequentlyText.style.display = "block";
   heartImg.style.display = "none";
   dialogBox.style.display = "block";
+  console.log("show dialog");
+  //eventListener
+  // body.addEventListener("click", locateClick(event));
 }
 // close dialog window //
 function closeDialog() {
   dialogBox.style.display = "none";
   heartImg.style.display = "block";
   frequentlyText.style.display = "none";
+  console.log("show me");
+}
+
+function locateClick(event) {
+  console.log(event.target.className);
+  //rutan ska stängas om man klickar knapp eller X
+  if (
+    event.target.className === "close-window" ||
+    event.target.className === "option-btn"
+  ) {
+    dialogBox.style.display = "none";
+    heartImg.style.display = "block";
+  }
+  //visar om användare har klickat i rutan = inget händer
+  else if (
+    event.target.className === "dialog-time-flex" ||
+    event.target.className === "dialog-time" ||
+    event.target.className === "dialog-theme-flex" ||
+    event.target.className === "dialog-theme" ||
+    event.target.className === "dialog-bold" ||
+    event.target.className === "frequently-p"
+  ) {
+    console.log("klickade i rutan");
+  }
+  //klickar utanför rutan
+  else {
+    dialogBox.style.display = "none";
+    heartImg.style.display = "block";
+  }
 }
 
 // ------------- AUDIO --------------- //
@@ -278,7 +320,30 @@ function startMeditation() {
     nameInput.placeholder = "Please enter this field";
   } else if (nameInput.value !== "") {
     localStorage.setItem("storeName", nameInput.value);
+    fadeOut();
   }
+}
+
+function fadeOut() {
+  let fadeEffect = setInterval(function () {
+    //no opacity is defined = empty string
+    if (cloudContent.style.opacity === "") {
+      cloudContent.style.opacity = 1;
+    }
+    if (cloudContent.style.opacity > 0) {
+      cloudContent.style.opacity -= 0.05;
+    } else {
+      clearInterval(fadeEffect);
+      cloudContent.style.display = "none";
+      shrinkCloud();
+    }
+  }, 30);
+}
+
+function shrinkCloud() {
+  bigCloud.style.transform = "scale(0.5)";
+
+  //transform length/time/..??
 }
 
 // window.addEventListener("load", loadHandler);

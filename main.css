@@ -163,6 +163,20 @@ body {
   opacity: 0.5;
   margin-bottom: 0;
 }
+.dialog-bold,
+.dialog-time,
+.dialog-theme {
+  margin: 8px 0;
+}
+.dialog-bold {
+  margin-right: 5px;
+  font-weight: 700;
+}
+.dialog-time-flex,
+.dialog-theme-flex {
+  display: flex;
+  justify-content: center;
+}
 
 .dialog-box {
   width: 150px;
@@ -203,6 +217,7 @@ ul {
   color: white;
   padding: 10px;
   border-radius: 5px;
+  margin-top: 20px;
 }
 .option-btn:hover {
   cursor: pointer;
@@ -233,6 +248,9 @@ ul {
   }
   li {
     padding: 5px;
+  }
+  .option-btn {
+    margin-top: 4px;
   }
 }
 @media screen and (max-width: 800px) {
@@ -318,6 +336,7 @@ ul {
   .option-btn {
     padding: 8px;
     font-size: 11px;
+    margin-top: 10px;
   }
 }
 

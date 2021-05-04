@@ -11,12 +11,12 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body onclick="locateClick(event)">
     <div class="start-page">
       <img src="cloud.svg" alt="cloud" class="big-cloud" />
       <div class="cloud-content">
         <div class="heart-star-flex">
-          <div class="frequently-used" onmouseover="heartText()" onmouseout="noHeartText()">
+          <div class="frequently-used" class="frequently-hover" onmouseover="heartText()" onmouseout="noHeartText()">
         <img src="heart.svg" alt="Frequently Used" class="heart-button">
         <p class="frequently-p">Frequently Used</p>
       </div>
@@ -67,10 +67,14 @@
         <button id="start-btn">START</button>
         <div class="dialog-box">
           <p class="close-window">x</p>
-          <ul>
-            <li><b>Time:</b> 5:00</li>
-            <li><b>Theme:</b> Forest</li>
-          </ul>
+          <div class="dialog-time-flex">
+            <p class="dialog-bold">Time: </p>
+            <p class="dialog-time">5:00</p> 
+          </div>
+          <div class="dialog-theme-flex">
+            <p class="dialog-bold">Theme: </p>
+            <p class="dialog-theme">Forest</p>
+            </div>
           <button class="option-btn">Use Options</button>
         </div>
       </div>
