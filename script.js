@@ -34,6 +34,8 @@ let cloudContent = document.querySelector(".cloud-content");
 let bigCloud = document.querySelector(".big-cloud");
 let cloudWidth = bigCloud.style.width;
 let parseWidth;
+let numberShrink = 1;
+let boolean = false;
 
 // document.addEventListener("click", locateClick(this));
 
@@ -331,7 +333,7 @@ function fadeOut() {
       cloudContent.style.opacity = 1;
     }
     if (cloudContent.style.opacity > 0) {
-      cloudContent.style.opacity -= 0.05;
+      cloudContent.style.opacity -= 0.04;
     } else {
       clearInterval(fadeEffect);
       cloudContent.style.display = "none";
@@ -341,10 +343,26 @@ function fadeOut() {
 }
 
 function shrinkCloud() {
+  bigCloud.classList.add("run-keyframe");
   bigCloud.style.transform = "scale(0.5)";
-
-  //transform length/time/..??
 }
+
+// function shrinkCloud() {
+//   let scaleEffect = setInterval(function () {
+//     let cloudScale = "scale(" + numberShrink + ")";
+//     bigCloud.style.transform = cloudScale;
+//     if (numberShrink === 1.1) {
+//       boolean = true;
+//     } else if (numberShrink < 1.1 && boolean === false) {
+//       numberShrink += 0.05;
+//       console.log(numberShrink);
+//     } else if (numberShrink <= 1.1 && numberShrink > 0.5 && boolean === true) {
+//       numberShrink -= 0.05;
+//     } else {
+//       clearInterval(scaleEffect);
+//     }
+//   }, 20);
+// }
 
 // window.addEventListener("load", loadHandler);
 

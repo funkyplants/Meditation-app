@@ -21,6 +21,8 @@ body {
   min-width: 480px;
   width: 100%;
   position: relative;
+  max-width: 900px;
+  margin: 0 auto;
 }
 .cloud-content {
   position: absolute;
@@ -224,11 +226,44 @@ ul {
   opacity: 0.7;
 }
 
+.run-keyframe {
+  animation: scaledown 2s;
+}
+@keyframes scaledown {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(0.5);
+  }
+}
+
+/* -------- SECOND PAGE ---------  */
+.second-content {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.timer {
+  position: absolute;
+  top: 260px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+  font-size: 50px;
+}
+
 /* -----------MEDIA QUERIES-------------- */
 
 @media screen and (max-width: 900px) {
   .cloud-content {
     top: 17vw;
+  }
+  .timer {
+    top: 28vw;
   }
   h1 {
     font-size: 24px;
@@ -291,6 +326,9 @@ ul {
   .dialog-box {
     top: 35px;
   }
+  .timer {
+    top: 25vw;
+  }
 }
 @media screen and (max-width: 680px) {
   #start-btn {
@@ -338,6 +376,9 @@ ul {
     font-size: 11px;
     margin-top: 10px;
   }
+  .timer {
+    top: 21vw;
+  }
 }
 
 @media screen and (max-width: 540px) {
@@ -370,6 +411,14 @@ ul {
 @media screen and (max-width: 480px) {
   .cloud-content {
     top: 15vw;
+  }
+  .big-cloud {
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+  }
+  body {
+    position: relative;
   }
 }
 @media screen and (max-width: 380px) {
