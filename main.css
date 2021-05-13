@@ -224,10 +224,10 @@ ul {
 }
 .option-btn:hover {
   cursor: pointer;
-  opacity: 0.7;
+  opacity: 0.9;
 }
 
-.run-keyframe {
+.scale-down-keyframe {
   animation: scaledown 2s;
 }
 @keyframes scaledown {
@@ -239,6 +239,20 @@ ul {
   }
   100% {
     transform: scale(0.5);
+  }
+}
+.scale-up-keyframe {
+  animation: scaleup 2s;
+}
+@keyframes scaleup {
+  0% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(0.4);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
@@ -266,16 +280,84 @@ ul {
   justify-content: center;
 }
 
-.play-btn,
+.pause-btn,
 .stop-btn {
   width: 30px;
   margin: 0 10px;
 }
-.play-btn:hover,
+.pause-btn:hover,
 .stop-btn:hover {
   cursor: pointer;
   transform: scale(1.05);
   opacity: 0.8;
+}
+
+.confirm-box {
+  width: 150px;
+  height: 120px;
+  background-color: #ffffff;
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  font-size: 14px;
+  position: absolute;
+  right: 15px;
+  top: 145px;
+  display: none;
+}
+.ok-btn,
+.cancel-btn {
+  background-color: #393939;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+.cancel-btn {
+  opacity: 0.5;
+}
+.ok-btn:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+.cancel-btn:hover {
+  opacity: 0.4;
+  cursor: pointer;
+}
+.stop-btn {
+  position: relative;
+}
+/* ------------------third content--------------------------*/
+
+.third-content {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 265px;
+  z-index: 10;
+  transform: translateX(-50%);
+}
+
+.restart-question {
+  font-size: 15px;
+}
+.yes-btn,
+.no-btn {
+  background-color: #393939;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+.yes-btn:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+.no-btn {
+  opacity: 0.5;
+}
+.no-btn:hover {
+  opacity: 0.4;
+  cursor: pointer;
 }
 
 /* -----------MEDIA QUERIES-------------- */

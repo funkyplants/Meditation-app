@@ -48,6 +48,26 @@ let minutes;
 let seconds;
 let gongSound = new Audio("gong-sound.mp3");
 
+//play, pause, stop buttons
+let pauseBtn = document.querySelector(".pause-btn");
+let stopBtn = document.querySelector(".stop-btn");
+pauseBtn.addEventListener("click", playPause);
+stopBtn.addEventListener("click", stopTimer);
+let timerPlaying = true; //timer is playing => pause button is displayed
+let confirmDialog = document.querySelector(".confirm-box");
+let okBtn = document.querySelector(".ok-btn");
+let cancelBtn = document.querySelector(".cancel-btn");
+okBtn.addEventListener("click", okFunction);
+cancelBtn.addEventListener("click", cancelFunction);
+let cloudContentOpacity = 0;
+
+// third content
+let thirdContent = document.querySelector(".third-content");
+let thirdContentOpacity = 0;
+let yesBtn = document.querySelector(".yes-btn");
+let noBtn = document.querySelector(".no-btn");
+yesBtn.addEventListener("click", thirdContentFade);
+noBtn.addEventListener("click", thirdContentFade);
 // document.addEventListener("click", locateClick(this));
 
 // function locateClick(element) {
@@ -72,18 +92,18 @@ let gongSound = new Audio("gong-sound.mp3");
 // //--------------GREETING------------------------//
 // window.addEventListener("load", loadHandler);
 // let timeBasedGreeting;
-// let time;
+// let timeOfDay;
 
 function loadHandler() {
   //change greeting depending on hour
-  time = new Date().getHours();
+  timeOfDay = new Date().getHours();
   console.log("window is loaded");
   console.log(time);
-  if (time < 12) {
+  if (timeOfDay < 12) {
     timeBasedGreeting = "Good Morning";
-  } else if (time < 18) {
+  } else if (timeOfDay < 18) {
     timeBasedGreeting = "Good Day";
-  } else if (time <= 18) {
+  } else if (timeOfDay <= 18) {
     timeBasedGreeting = "Good Night";
   }
   // localStorage for the name //
@@ -328,6 +348,7 @@ function firePlay() {
 startBtn.addEventListener("click", startMeditation);
 
 function startMeditation() {
+  timerPlaying = true;
   parseTime = parseInt(randomTime.value);
   if (nameInput.value === "") {
     nameInput.style.border = "solid 1px #FF0000";
@@ -349,6 +370,7 @@ function fadeOut() {
       cloudContent.style.opacity -= 0.04;
     } else {
       clearInterval(fadeEffect);
+      cloudContentOpacity = 0;
       cloudContent.style.display = "none";
       shrinkCloud();
     }
@@ -356,7 +378,7 @@ function fadeOut() {
 }
 
 function shrinkCloud() {
-  bigCloud.classList.add("run-keyframe");
+  bigCloud.classList.add("scale-down-keyframe");
   bigCloud.style.transform = "scale(0.5)";
   readTimer();
 }
@@ -365,7 +387,7 @@ function readTimer() {
   timerElement.innerHTML = parseTime + ":00";
   setTimeout(fadeIn, 1500);
 }
-
+//second content fades in
 function fadeIn() {
   let secondFadeEffect = setInterval(function () {
     //no opacity is defined = empty string
@@ -384,11 +406,11 @@ function fadeIn() {
 }
 
 function startTimer() {
-  startingTime = parseTime;
-  time = startingTime * 60;
-  let timerCountdown = setInterval(function () {
-    minutes = Math.floor(time / 60);
-    seconds = time % 60;
+  startingTime = parseTime; //the time the user has chosen
+  time = startingTime * 60; //how many seconds (time chosen * 60)
+  timerCountdown = setInterval(function () {
+    minutes = Math.floor(time / 60); // get the closest minute rounded down
+    seconds = time % 60; //the rest from time/60 - the rest of the seconds when we got the minutes
 
     if (seconds < 10) {
       seconds = "0" + seconds;
@@ -401,32 +423,152 @@ function startTimer() {
     if (minutes === 0 && seconds === "0" + 0) {
       clearInterval(timerCountdown);
       timerElement.innerHTML = "0:00";
+      //pause potential sound and play GONG
       if (mute === false) {
         audio.pause();
         gongSound.play();
       } else {
         gongSound.play();
       }
+      //second content fades out
+      setTimeout(timerComplete, 1200);
     }
   }, 1000);
 }
 
-// function shrinkCloud() {
-//   let scaleEffect = setInterval(function () {
-//     let cloudScale = "scale(" + numberShrink + ")";
-//     bigCloud.style.transform = cloudScale;
-//     if (numberShrink === 1.1) {
-//       boolean = true;
-//     } else if (numberShrink < 1.1 && boolean === false) {
-//       numberShrink += 0.05;
-//       console.log(numberShrink);
-//     } else if (numberShrink <= 1.1 && numberShrink > 0.5 && boolean === true) {
-//       numberShrink -= 0.05;
-//     } else {
-//       clearInterval(scaleEffect);
-//     }
-//   }, 20);
-// }
+function playPause() {
+  //we want to PAUSE the TIMER
+  if (timerPlaying === true) {
+    pauseBtn.src = "play-btn.png";
+    timerPlaying = false;
+    clearInterval(timerCountdown);
+    parseTime = time / 60;
+    console.log(parseTime);
+    audio.pause();
+  }
+  //we want to PLAY the TIMER
+  else {
+    pauseBtn.src = "pause-btn.png";
+    timerPlaying = true;
+    if (mute !== true) {
+      audio.play();
+    }
+    startTimer();
+  }
+}
+
+function stopTimer() {
+  //hej
+  if (
+    confirmDialog.style.display === "" ||
+    confirmDialog.style.display === "none"
+  ) {
+    confirmDialog.style.display = "block";
+  }
+}
+
+function okFunction() {
+  confirmDialog.style.display = "none";
+  let fadeTimerContent = setInterval(function () {
+    if (secondContent.style.opacity === "") {
+      secondContent.style.opacity = 1;
+    }
+    if (secondContent.style.opacity > 0) {
+      secondContent.style.opacity -= 0.04;
+    } else {
+      clearInterval(fadeTimerContent);
+      timerOpacity = 0;
+      secondContent.style.display = "none";
+    }
+  }, 30);
+  bigCloud.classList.remove("scale-down-keyframe");
+  bigCloud.classList.add("scale-up-keyframe");
+  bigCloud.style.transform = "scale(1)";
+  //reset timer
+  timerPlaying = false;
+  clearInterval(timerCountdown);
+  audio.pause();
+  //reset mute button
+  soundBtn.src = "sound-off.svg";
+  mute = true;
+  //reset play/pause button
+  pauseBtn.src = "pause-btn.png";
+
+  setTimeout(fadeInCloudContent, 2000);
+}
+
+function fadeInCloudContent() {
+  bigCloud.classList.remove("scale-up-keyframe");
+  let cloudContentFadeIn = setInterval(function () {
+    //no opacity is defined = empty string
+    console.log(cloudContentOpacity);
+    if (cloudContentOpacity === 0 || cloudContent.style.display === "none") {
+      cloudContent.style.display = "block";
+    }
+    if (cloudContentOpacity <= 1) {
+      console.log(cloudContentOpacity);
+      cloudContentOpacity += 0.04;
+      cloudContent.style.opacity = cloudContentOpacity;
+      console.log(cloudContentOpacity);
+    } else {
+      clearInterval(cloudContentFadeIn);
+    }
+  }, 30);
+}
+
+function cancelFunction() {
+  //hej
+  confirmDialog.style.display = "none";
+}
+
+// -------------------------------------- WHEN TIMER COMPLETED -------------------------- //
+
+function timerComplete() {
+  bigCloud.classList.remove("scale-down-keyframe");
+  let fadeTimerContent = setInterval(function () {
+    if (secondContent.style.opacity === "") {
+      secondContent.style.opacity = 1;
+    }
+    if (secondContent.style.opacity > 0) {
+      secondContent.style.opacity -= 0.04;
+    } else {
+      clearInterval(fadeTimerContent);
+      timerOpacity = 0;
+      secondContent.style.display = "none";
+    }
+  }, 30);
+  let thirdContentFadeIn = setInterval(function () {
+    //no opacity is defined = empty string
+    console.log(thirdContentOpacity);
+    if (thirdContentOpacity === 0 || thirdContent.style.display === "none") {
+      thirdContent.style.display = "block";
+    }
+    if (thirdContentOpacity <= 1) {
+      console.log(thirdContentOpacity);
+      thirdContentOpacity += 0.04;
+      thirdContent.style.opacity = thirdContentOpacity;
+      console.log(thirdContentOpacity);
+    } else {
+      clearInterval(thirdContentFadeIn);
+    }
+  }, 30);
+}
+
+function thirdContentFade() {
+  // fade out //
+  let fadeThirdContent = setInterval(function () {
+    if (thirdContent.style.opacity === "") {
+      thirdContent.style.opacity = 1;
+    }
+    if (secondContent.style.opacity > 0) {
+      secondContent.style.opacity -= 0.04;
+    } else {
+      clearInterval(fadeThirdContent);
+      timerOpacity = 0;
+      secondContent.style.display = "none";
+    }
+  }, 30);
+}
 
 // window.addEventListener("load", loadHandler);
 
