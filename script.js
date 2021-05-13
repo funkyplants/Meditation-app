@@ -556,16 +556,16 @@ function timerComplete() {
 
 function thirdContentFade() {
   // fade out //
+  console.log("dden kommer till funktionen alls");
   let fadeThirdContent = setInterval(function () {
-    if (thirdContent.style.opacity === "") {
-      thirdContent.style.opacity = 1;
-    }
-    if (secondContent.style.opacity > 0) {
-      secondContent.style.opacity -= 0.04;
+    if (thirdContent.style.opacity > 0) {
+      thirdContent.style.opacity -= 0.04;
+      console.log("dden kommer till 1");
     } else {
       clearInterval(fadeThirdContent);
-      timerOpacity = 0;
-      secondContent.style.display = "none";
+      thirdContentOpacity = 0;
+      thirdContent.style.display = "none";
+      console.log("dden kommer till 1");
     }
   }, 30);
 }
