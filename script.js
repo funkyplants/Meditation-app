@@ -35,7 +35,18 @@ let bigCloud = document.querySelector(".big-cloud");
 let cloudWidth = bigCloud.style.width;
 let parseWidth;
 let numberShrink = 1;
-let boolean = false;
+
+//second content
+let secondContent = document.querySelector(".second-content");
+let timerOpacity = 0;
+
+//timer
+let timerElement = document.querySelector(".timer");
+let startingTime;
+let time;
+let minutes;
+let seconds;
+let gongSound = new Audio("gong-sound.mp3");
 
 // document.addEventListener("click", locateClick(this));
 
@@ -317,11 +328,13 @@ function firePlay() {
 startBtn.addEventListener("click", startMeditation);
 
 function startMeditation() {
+  parseTime = parseInt(randomTime.value);
   if (nameInput.value === "") {
     nameInput.style.border = "solid 1px #FF0000";
     nameInput.placeholder = "Please enter this field";
   } else if (nameInput.value !== "") {
     localStorage.setItem("storeName", nameInput.value);
+    console.log(parseTime);
     fadeOut();
   }
 }
@@ -345,6 +358,57 @@ function fadeOut() {
 function shrinkCloud() {
   bigCloud.classList.add("run-keyframe");
   bigCloud.style.transform = "scale(0.5)";
+  readTimer();
+}
+
+function readTimer() {
+  timerElement.innerHTML = parseTime + ":00";
+  setTimeout(fadeIn, 1500);
+}
+
+function fadeIn() {
+  let secondFadeEffect = setInterval(function () {
+    //no opacity is defined = empty string
+    if (timerOpacity === 0) {
+      secondContent.style.display = "block";
+    }
+    if (timerOpacity <= 1) {
+      console.log(timerOpacity);
+      timerOpacity += 0.04;
+      secondContent.style.opacity = timerOpacity;
+    } else {
+      clearInterval(secondFadeEffect);
+    }
+  }, 30);
+  startTimer();
+}
+
+function startTimer() {
+  startingTime = parseTime;
+  time = startingTime * 60;
+  let timerCountdown = setInterval(function () {
+    minutes = Math.floor(time / 60);
+    seconds = time % 60;
+
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    } else {
+      seconds = seconds;
+    }
+    timerElement.innerHTML = minutes + ":" + seconds;
+    time--;
+
+    if (minutes === 0 && seconds === "0" + 0) {
+      clearInterval(timerCountdown);
+      timerElement.innerHTML = "0:00";
+      if (mute === false) {
+        audio.pause();
+        gongSound.play();
+      } else {
+        gongSound.play();
+      }
+    }
+  }, 1000);
 }
 
 // function shrinkCloud() {
