@@ -341,7 +341,7 @@ ul {
   font-size: 15px;
 }
 .yes-btn,
-.no-btn {
+.return-btn {
   background-color: #393939;
   border: none;
   color: white;
@@ -352,10 +352,10 @@ ul {
   cursor: pointer;
   opacity: 0.9;
 }
-.no-btn {
+.return-btn {
   opacity: 0.5;
 }
-.no-btn:hover {
+.return-btn:hover {
   opacity: 0.4;
   cursor: pointer;
 }

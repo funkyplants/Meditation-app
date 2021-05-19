@@ -4,6 +4,10 @@ let soundBtn = document.querySelector(".sound");
 soundBtn.addEventListener("click", soundPlaying);
 let mute = true; //see if audio is playing or not
 
+//greeting localStorage
+askForName = document.querySelector(".name-p");
+let windowLoadedFirst;
+
 //Feeling lucky?
 let starImg = document.querySelector(".star-button");
 let luckyText = document.querySelector(".lucky-p");
@@ -47,6 +51,7 @@ let time;
 let minutes;
 let seconds;
 let gongSound = new Audio("gong-sound.mp3");
+let originalTime;
 
 //play, pause, stop buttons
 let pauseBtn = document.querySelector(".pause-btn");
@@ -65,9 +70,10 @@ let cloudContentOpacity = 0;
 let thirdContent = document.querySelector(".third-content");
 let thirdContentOpacity = 0;
 let yesBtn = document.querySelector(".yes-btn");
-let noBtn = document.querySelector(".no-btn");
-yesBtn.addEventListener("click", thirdContentFade);
-noBtn.addEventListener("click", thirdContentFade);
+let returnBtn = document.querySelector(".return-btn");
+yesBtn.addEventListener("click", yesBtnFade);
+returnBtn.addEventListener("click", returnBtnFade);
+let clickedRestart;
 // document.addEventListener("click", locateClick(this));
 
 // function locateClick(element) {
@@ -90,32 +96,52 @@ noBtn.addEventListener("click", thirdContentFade);
 // }
 
 // //--------------GREETING------------------------//
-// window.addEventListener("load", loadHandler);
-// let timeBasedGreeting;
-// let timeOfDay;
+window.addEventListener("load", loadHandler);
+let timeBasedGreeting;
+let timeOfDay;
 
 function loadHandler() {
+  cloudContent.style.opacity = 0;
+  windowLoadedFirst = true;
+  readGreeting();
+}
+
+function readGreeting() {
   //change greeting depending on hour
   timeOfDay = new Date().getHours();
   console.log("window is loaded");
-  console.log(time);
-  if (timeOfDay < 12) {
-    timeBasedGreeting = "Good Morning";
-  } else if (timeOfDay < 18) {
-    timeBasedGreeting = "Good Day";
-  } else if (timeOfDay <= 18) {
-    timeBasedGreeting = "Good Night";
-  }
   // localStorage for the name //
   if (localStorage.getItem("storeName") === null) {
+    if (timeOfDay < 12) {
+      timeBasedGreeting = "Good Morning!";
+    } else if (timeOfDay < 18) {
+      timeBasedGreeting = "Good Day!";
+    } else if (timeOfDay <= 18) {
+      timeBasedGreeting = "Good Night!";
+    }
     greeting.innerHTML = timeBasedGreeting;
   } else {
+    if (timeOfDay < 12) {
+      timeBasedGreeting = "Good Morning";
+    } else if (timeOfDay < 18) {
+      timeBasedGreeting = "Good Day";
+    } else if (timeOfDay <= 18) {
+      timeBasedGreeting = "Good Night";
+    }
     readName = localStorage.getItem("storeName");
+    askForName.innerHTML = "Not you? What's your name?";
     greeting.innerHTML = timeBasedGreeting + " " + readName + "!";
+  }
+  nameInput.value = "";
+  if (windowLoadedFirst === true) {
+    windowLoadedFirst = false;
+    setTimeout(fadeInCloudContent, 500);
+  } else if (windowLoadedFirst === false) {
+    setTimeout(fadeInCloudContent, 2000);
   }
 }
 
-// --------------- TIMER-SECTION ------------- //
+// --------------- TIMER-INPUT ------------- //
 function checkNumber() {
   // isNAN = is not a number, so if "not a number" = false, it IS a number //
   if (isNaN(randomTime.value) == false) {
@@ -349,18 +375,28 @@ startBtn.addEventListener("click", startMeditation);
 
 function startMeditation() {
   timerPlaying = true;
+  originalTime = parseTime;
   parseTime = parseInt(randomTime.value);
-  if (nameInput.value === "") {
+  if (nameInput.value === "" && localStorage.getItem("storeName") === null) {
     nameInput.style.border = "solid 1px #FF0000";
+    nameInput.style.borderRadius = "3px";
     nameInput.placeholder = "Please enter this field";
-  } else if (nameInput.value !== "") {
-    localStorage.setItem("storeName", nameInput.value);
+  } else if (
+    nameInput.value !== "" ||
+    localStorage.getItem("storeName") !== null
+  ) {
+    nameInput.style.border = "solid 1px rgb(145, 145, 145)";
+    nameInput.style.borderRadius = "3px";
+    nameInput.placeholder = "Your name here...";
+    if (nameInput.value !== "") {
+      localStorage.setItem("storeName", nameInput.value);
+    }
     console.log(parseTime);
-    fadeOut();
+    startPgFadeOut();
   }
 }
 
-function fadeOut() {
+function startPgFadeOut() {
   let fadeEffect = setInterval(function () {
     //no opacity is defined = empty string
     if (cloudContent.style.opacity === "") {
@@ -383,12 +419,17 @@ function shrinkCloud() {
   readTimer();
 }
 
+//read the value from the timer input and display in html
 function readTimer() {
-  timerElement.innerHTML = parseTime + ":00";
-  setTimeout(fadeIn, 1500);
+  if (clickedRestart === true) {
+    timerElement.innerHTML = originalTime + ":00";
+  } else {
+    timerElement.innerHTML = parseTime + ":00";
+  }
+  setTimeout(timerFadeIn, 1500);
 }
 //second content fades in
-function fadeIn() {
+function timerFadeIn() {
   let secondFadeEffect = setInterval(function () {
     //no opacity is defined = empty string
     if (timerOpacity === 0) {
@@ -405,8 +446,14 @@ function fadeIn() {
   startTimer();
 }
 
+//the timer itself
 function startTimer() {
-  startingTime = parseTime; //the time the user has chosen
+  if (clickedRestart === true) {
+    startingTime = originalTime;
+    clickedRestart = false;
+  } else {
+    startingTime = parseTime; //the time the user has chosen
+  }
   time = startingTime * 60; //how many seconds (time chosen * 60)
   timerCountdown = setInterval(function () {
     minutes = Math.floor(time / 60); // get the closest minute rounded down
@@ -436,6 +483,7 @@ function startTimer() {
   }, 1000);
 }
 
+//play/pause buttons
 function playPause() {
   //we want to PAUSE the TIMER
   if (timerPlaying === true) {
@@ -457,8 +505,8 @@ function playPause() {
   }
 }
 
+//stop button, display dialog box (quit)
 function stopTimer() {
-  //hej
   if (
     confirmDialog.style.display === "" ||
     confirmDialog.style.display === "none"
@@ -467,6 +515,7 @@ function stopTimer() {
   }
 }
 
+//ok button dialog box (quit)
 function okFunction() {
   confirmDialog.style.display = "none";
   let fadeTimerContent = setInterval(function () {
@@ -493,10 +542,11 @@ function okFunction() {
   mute = true;
   //reset play/pause button
   pauseBtn.src = "pause-btn.png";
-
-  setTimeout(fadeInCloudContent, 2000);
+  readGreeting();
+  // setTimeout(fadeInCloudContent, 2000);
 }
 
+//fade in start page when returning from quit-button
 function fadeInCloudContent() {
   bigCloud.classList.remove("scale-up-keyframe");
   let cloudContentFadeIn = setInterval(function () {
@@ -554,8 +604,26 @@ function timerComplete() {
   }, 30);
 }
 
-function thirdContentFade() {
-  // fade out //
+// fade out when clicking yes and timer fade in //
+function yesBtnFade() {
+  console.log("dden kommer till funktionen alls");
+  clickedRestart = true;
+  let fadeThirdContent = setInterval(function () {
+    if (thirdContent.style.opacity > 0) {
+      thirdContent.style.opacity -= 0.04;
+      console.log("dden kommer till 1");
+    } else {
+      clearInterval(fadeThirdContent);
+      thirdContentOpacity = 0;
+      thirdContent.style.display = "none";
+      console.log("dden kommer till 1");
+    }
+  }, 30);
+  setTimeout(readTimer, 1500);
+}
+
+// "return to start" button fade out and start page fade in //
+function returnBtnFade() {
   console.log("dden kommer till funktionen alls");
   let fadeThirdContent = setInterval(function () {
     if (thirdContent.style.opacity > 0) {
@@ -568,9 +636,22 @@ function thirdContentFade() {
       console.log("dden kommer till 1");
     }
   }, 30);
-}
 
-// window.addEventListener("load", loadHandler);
+  bigCloud.classList.remove("scale-down-keyframe");
+  bigCloud.classList.add("scale-up-keyframe");
+  bigCloud.style.transform = "scale(1)";
+  //reset timer
+  timerPlaying = false;
+  clearInterval(timerCountdown);
+  audio.pause();
+  //reset mute button
+  soundBtn.src = "sound-off.svg";
+  mute = true;
+  //reset play/pause button
+  pauseBtn.src = "pause-btn.png";
+
+  setTimeout(fadeInCloudContent, 2000);
+}
 
 // if (localStorage.getItem("names") === null) {
 //   names.unshift(nameInput.value);
