@@ -76,6 +76,9 @@ returnBtn.addEventListener("click", returnBtnFade);
 let clickedRestart;
 // document.addEventListener("click", locateClick(this));
 
+//frequently used - localStorage
+let optionsArray = [];
+
 // function locateClick(element) {
 //   console.log(element);
 //   let targetElement = element.target;
@@ -145,14 +148,11 @@ function readGreeting() {
 function checkNumber() {
   // isNAN = is not a number, so if "not a number" = false, it IS a number //
   if (isNaN(randomTime.value) == false) {
-    console.log("number");
     parseTime = parseInt(randomTime.value);
     randomTime.value = parseTime + ":00";
-    console.log(parseTime);
     randomTime.style.border = "solid 1px rgb(145, 145, 145)";
     randomTime.placeholder = "";
   } else {
-    console.log("not a number");
     randomTime.style.border = "solid 1px #FF0000";
     randomTime.value = "";
     randomTime.placeholder = "Error";
@@ -163,7 +163,6 @@ function increment() {
   let parseTime;
   if (randomTime.placeholder !== "Error") {
     parseTime = parseInt(randomTime.value);
-    console.log(parseTime);
     randomTime.value = parseTime + 5 + ":00";
   } else if (randomTime.placeholder === "Error") {
     parseTime = 5;
@@ -172,21 +171,17 @@ function increment() {
     randomTime.style.border = "solid 1px rgb(145, 145, 145)";
   }
   if (parseTime % 5 !== 0) {
-    console.log("remainder");
     let remainder = parseTime % 5;
     //hur mycket ska vi runda upp?
     let roundUp = 5 - remainder;
     parseTime += roundUp;
     randomTime.value = parseTime + ":00";
-    console.log(parseTime);
-    console.log(randomTime.value);
   }
 }
 function decrement() {
   let parseTime;
   if (randomTime.placeholder !== "Error") {
     parseTime = parseInt(randomTime.value);
-    console.log(parseTime);
   } else if (randomTime.placeholder === "Error") {
     parseTime = 5;
     randomTime.value = parseTime + ":00";
@@ -197,13 +192,10 @@ function decrement() {
     randomTime.value = parseTime - 5 + ":00";
   }
   if (parseTime % 5 !== 0) {
-    console.log("remainder");
     let remainder = parseTime % 5;
     //hur mycket ska vi runda upp?
     parseTime -= remainder;
     randomTime.value = parseTime + ":00";
-    console.log(parseTime);
-    console.log(randomTime.value);
   }
 }
 
@@ -251,7 +243,6 @@ function showDialog() {
   frequentlyText.style.display = "block";
   heartImg.style.display = "none";
   dialogBox.style.display = "block";
-  console.log("show dialog");
   //eventListener
   // body.addEventListener("click", locateClick(event));
 }
@@ -260,11 +251,9 @@ function closeDialog() {
   dialogBox.style.display = "none";
   heartImg.style.display = "block";
   frequentlyText.style.display = "none";
-  console.log("show me");
 }
 
 function locateClick(event) {
-  console.log(event.target.className);
   //rutan ska stängas om man klickar knapp eller X
   if (
     event.target.className === "close-window" ||
@@ -282,7 +271,6 @@ function locateClick(event) {
     event.target.className === "dialog-bold" ||
     event.target.className === "frequently-p"
   ) {
-    console.log("klickade i rutan");
   }
   //klickar utanför rutan
   else {
@@ -306,7 +294,6 @@ function soundPlaying() {
 }
 
 function previewFunction() {
-  console.log(randomTheme.value);
   if (randomTheme.value === "rain") {
     rainPlay();
   } else if (randomTheme.value === "ocean") {
@@ -377,6 +364,7 @@ function startMeditation() {
   timerPlaying = true;
   originalTime = parseTime;
   parseTime = parseInt(randomTime.value);
+
   if (nameInput.value === "" && localStorage.getItem("storeName") === null) {
     nameInput.style.border = "solid 1px #FF0000";
     nameInput.style.borderRadius = "3px";
@@ -391,7 +379,33 @@ function startMeditation() {
     if (nameInput.value !== "") {
       localStorage.setItem("storeName", nameInput.value);
     }
-    console.log(parseTime);
+    //frequently used - localStorage
+
+    // object //
+    optionsInfo = {
+      time: randomTime.value,
+      theme: randomTheme.value,
+    };
+    if (localStorage.optionsInfoString !== undefined) {
+      // om den har nåt i sig //
+      console.log(localStorage.optionsInfoString);
+      let optionsArray = JSON.parse(localStorage.optionsInfoString);
+      optionsArray.push(optionsInfo);
+      console.log(optionsArray);
+
+      let optionsInfoString = JSON.stringify(optionsArray);
+
+      // adding to localStorage //
+      localStorage.setItem("optionsArray", optionsArray);
+      console.log(optionsArray);
+      console.log(localStorage);
+    } else {
+      optionsArray.push(optionsInfo);
+      let optionsInfoString = JSON.stringify(optionsArray);
+      localStorage.setItem("optionsInfoString", optionsInfoString);
+      console.log(optionsInfoString);
+    }
+
     startPgFadeOut();
   }
 }
@@ -436,7 +450,6 @@ function timerFadeIn() {
       secondContent.style.display = "block";
     }
     if (timerOpacity <= 1) {
-      console.log(timerOpacity);
       timerOpacity += 0.04;
       secondContent.style.opacity = timerOpacity;
     } else {
@@ -491,7 +504,6 @@ function playPause() {
     timerPlaying = false;
     clearInterval(timerCountdown);
     parseTime = time / 60;
-    console.log(parseTime);
     audio.pause();
   }
   //we want to PLAY the TIMER
@@ -551,15 +563,12 @@ function fadeInCloudContent() {
   bigCloud.classList.remove("scale-up-keyframe");
   let cloudContentFadeIn = setInterval(function () {
     //no opacity is defined = empty string
-    console.log(cloudContentOpacity);
     if (cloudContentOpacity === 0 || cloudContent.style.display === "none") {
       cloudContent.style.display = "block";
     }
     if (cloudContentOpacity <= 1) {
-      console.log(cloudContentOpacity);
       cloudContentOpacity += 0.04;
       cloudContent.style.opacity = cloudContentOpacity;
-      console.log(cloudContentOpacity);
     } else {
       clearInterval(cloudContentFadeIn);
     }
@@ -589,15 +598,12 @@ function timerComplete() {
   }, 30);
   let thirdContentFadeIn = setInterval(function () {
     //no opacity is defined = empty string
-    console.log(thirdContentOpacity);
     if (thirdContentOpacity === 0 || thirdContent.style.display === "none") {
       thirdContent.style.display = "block";
     }
     if (thirdContentOpacity <= 1) {
-      console.log(thirdContentOpacity);
       thirdContentOpacity += 0.04;
       thirdContent.style.opacity = thirdContentOpacity;
-      console.log(thirdContentOpacity);
     } else {
       clearInterval(thirdContentFadeIn);
     }
@@ -606,17 +612,14 @@ function timerComplete() {
 
 // fade out when clicking yes and timer fade in //
 function yesBtnFade() {
-  console.log("dden kommer till funktionen alls");
   clickedRestart = true;
   let fadeThirdContent = setInterval(function () {
     if (thirdContent.style.opacity > 0) {
       thirdContent.style.opacity -= 0.04;
-      console.log("dden kommer till 1");
     } else {
       clearInterval(fadeThirdContent);
       thirdContentOpacity = 0;
       thirdContent.style.display = "none";
-      console.log("dden kommer till 1");
     }
   }, 30);
   setTimeout(readTimer, 1500);
@@ -624,16 +627,13 @@ function yesBtnFade() {
 
 // "return to start" button fade out and start page fade in //
 function returnBtnFade() {
-  console.log("dden kommer till funktionen alls");
   let fadeThirdContent = setInterval(function () {
     if (thirdContent.style.opacity > 0) {
       thirdContent.style.opacity -= 0.04;
-      console.log("dden kommer till 1");
     } else {
       clearInterval(fadeThirdContent);
       thirdContentOpacity = 0;
       thirdContent.style.display = "none";
-      console.log("dden kommer till 1");
     }
   }, 30);
 
